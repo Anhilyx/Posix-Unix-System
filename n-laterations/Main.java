@@ -4,6 +4,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         System.out.println("=== Début de la N-Latération ===");
+        double timestamp = System.nanoTime();
 
         // 1. Initialisation des données du PDF
         List<AbstractEmetteur> emetteurs = new ArrayList<>();
@@ -13,7 +14,7 @@ public class Main {
         emetteurs.add(new Emetteur(new Position(3.0, 3.0, 3.0), 2.5));
 
         // 2. Variables pour la recherche
-        double pas = 0.05; // Précision de la recherche (comme dans l'annexe du PDF)
+        double pas = 0.1; // Précision de la recherche (comme dans l'annexe du PDF)
         double borneMax = 6.0; // Borne maximale de l'espace de recherche (X, Y, Z)
         
         AbstractCell meilleureCellule = null;
@@ -45,5 +46,6 @@ public class Main {
             System.out.println("Position estimée du Terminal Mobile : " + meilleureCellule.getPosition());
             System.out.println("Marge d'erreur résiduelle (minimisaton) : " + erreurMinimale);
         }
+        System.out.println("Trouvé en " + ((int) ((System.nanoTime() - timestamp) / 10000) / 100) + "ms");
     }
 }
