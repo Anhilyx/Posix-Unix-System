@@ -1,0 +1,1 @@
+sudo nvcc -O3 nlateration.cu -o nlateration && ./nlateration && sudo rm nlateration
