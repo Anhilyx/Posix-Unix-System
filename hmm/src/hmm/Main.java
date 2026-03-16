@@ -8,14 +8,19 @@ public final class Main {
         InputParser parser = new InputParser();
 
         List<String> nodeNames = List.of("A", "B", "C", "D");
-        List<String> observedPathNames = List.of("A", "B", "C", "B", "D", "B", "C");
+
+        int[][] transitionCounts = new int[][]{
+                {0, 1, 0, 0},
+                {0, 0, 2, 1},
+                {0, 1, 0, 0},
+                {0, 1, 0, 0}
+        };
 
         try {
             List<State> states = parser.createStates(nodeNames);
             MarkovModel model = new MarkovModel(states);
-            List<State> path = parser.mapToStates(observedPathNames, model);
 
-            model.recordPath(path);
+            model.recordTransitionCounts(transitionCounts);
 
             ModelPrinter printer = new ModelPrinter();
             printer.print(System.out, model);

@@ -70,6 +70,7 @@ public final class MarkovModel {
         if (path == null || path.isEmpty()) {
             throw new IllegalArgumentException("Observed path is empty.");
         }
+        resetCounts();
         State previous = null;
         for (State current : path) {
             requireKnownState(current);
@@ -81,6 +82,37 @@ public final class MarkovModel {
         }
     }
 
+    public void recordTransitionCounts(int[][] counts) {
+        if (counts == null || counts.length == 0) {
+            throw new IllegalArgumentException("Transition count matrix is empty.");
+        }
+        int size = states.size();
+        if (counts.length != size) {
+            throw new IllegalArgumentException("Matrix row count does not match number of states.");
+        }
+        for (int[] row : counts) {
+            if (row == null || row.length != size) {
+                throw new IllegalArgumentException("Matrix must be square with size " + size + ".");
+            }
+        }
+
+        resetCounts();
+        for (int i = 0; i < size; i++) {
+            State from = states.get(i);
+            int rowTotal = 0;
+            for (int j = 0; j < size; j++) {
+                int count = counts[i][j];
+                if (count < 0) {
+                    throw new IllegalArgumentException("Transition count must be non-negative.");
+                }
+                State to = states.get(j);
+                transitionMatrix.setCount(from, to, count);
+                rowTotal += count;
+            }
+            visitCounts.put(from, rowTotal);
+        }
+    }
+
     private void incrementVisit(State state) {
         visitCounts.put(state, visitCounts.getOrDefault(state, 0) + 1);
     }
@@ -89,5 +121,12 @@ public final class MarkovModel {
         if (state == null || !stateByName.containsKey(state.getName())) {
             throw new IllegalArgumentException("Unknown state: " + state);
         }
+    }
+
+    private void resetCounts() {
+        for (State state : states) {
+            visitCounts.put(state, 0);
+        }
+        transitionMatrix.clear();
     }
 }
