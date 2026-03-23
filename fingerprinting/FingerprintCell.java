@@ -1,14 +1,14 @@
-public class Cell {
+public class FingerprintCell {
 
-    private final Position center;
+    private final FingerprintPosition center;
     private final Fingerprint fingerprint;
 
-    public Cell(Position center, Fingerprint fingerprint) {
+    public FingerprintCell(FingerprintPosition center, Fingerprint fingerprint) {
         this.center = center;
         this.fingerprint = fingerprint;
     }
 
-    public Position getCenter() {
+    public FingerprintPosition getCenter() {
         return center;
     }
 

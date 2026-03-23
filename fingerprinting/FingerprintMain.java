@@ -1,18 +1,18 @@
 import java.util.List;
 
-public class Main {
+public class FingerprintMain {
 
     public static void main(String[] args) {
 
         Environment env = EnvironmentFactory.createDefaultEnvironment();
 
         MobileTerminal mt = new MobileTerminal(
-                new SignalVector(List.of(-47,-59,-52))
+                new SignalVector(List.of(-50,-40,-60,-30))
         );
 
         DistanceMetric metric = new EuclideanDistance();
 
-        List<Cell> nearest = KNearestAlgorithm.findNearest(
+        List<FingerprintCell> nearest = KNearestAlgorithm.findNearest(
                 env.getCells(),
                 mt.getSignalVector(),
                 3,
@@ -22,7 +22,7 @@ public class Main {
         PositioningAlgorithm algorithm =
                 new BarycentricPositioning(metric);
 
-        Position pos = algorithm.computePosition(
+        FingerprintPosition pos = algorithm.computePosition(
                 nearest,
                 mt.getSignalVector()
         );

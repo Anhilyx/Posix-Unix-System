@@ -2,6 +2,6 @@ import java.util.List;
 
 public interface PositioningAlgorithm {
 
-    Position computePosition(List<Cell> cells, SignalVector target);
+    FingerprintPosition computePosition(List<FingerprintCell> cells, SignalVector target);
 
 }

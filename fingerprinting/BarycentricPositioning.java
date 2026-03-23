@@ -9,13 +9,13 @@ public class BarycentricPositioning implements PositioningAlgorithm {
     }
 
     @Override
-    public Position computePosition(List<Cell> cells, SignalVector target) {
+    public FingerprintPosition computePosition(List<FingerprintCell> cells, SignalVector target) {
 
         double sumWeights = 0;
         double x = 0;
         double y = 0;
 
-        for (Cell cell : cells) {
+        for (FingerprintCell cell : cells) {
 
             double d = distanceMetric.compute(
                     cell.getFingerprint().getSignalVector(),
@@ -37,6 +37,6 @@ public class BarycentricPositioning implements PositioningAlgorithm {
         x /= sumWeights;
         y /= sumWeights;
 
-        return new Position(x, y);
+        return new FingerprintPosition(x, y);
     }
 }
