@@ -2,7 +2,7 @@ import java.util.List;
 
 public abstract class AbstractCell {
     protected AbstractPosition position;
-    protected double erreurTotale; // Somme des erreurs par rapport aux émetteurs
+    protected double erreurTotale;
 
     public AbstractCell(AbstractPosition position) {
         this.position = position;
